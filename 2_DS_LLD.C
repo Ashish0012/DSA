@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
-#include<conio.h>
+
 #include<dos.h>
 
 struct node
@@ -90,11 +90,11 @@ int deletion()
 }
 
 void main()
-{ clrscr();
+{ system("cls");
   printf("Enter data :-\n\n");
   llmake();
   displayll();
   deletion();
   printf("Press any key to EXIT ...");
-  getch();
+  
 }
