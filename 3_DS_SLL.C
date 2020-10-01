@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<conio.h>
-#include<dos.h>
+
 
 struct node
 { int data;
@@ -42,7 +42,7 @@ void displayll()
     printf("----------------------------------------------------\n");
     ptr=ptr->nxt;
     i++;
-    delay(750);
+    
   }while(ptr!=NULL);
 }
 
