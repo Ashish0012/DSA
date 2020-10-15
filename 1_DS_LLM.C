@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<conio.h>
 
 
 struct node
@@ -50,11 +51,22 @@ void displaycll()
   }while(ptr!=NULL);
 }
 
+int numberofnodes()
+{ int i=1;
+  ptr=head;
+  do
+  { ptr=ptr->nxt;
+    i++;
+  }while(ptr!=NULL);
+  return i;
+}
+
 void main()
 { system("cls");
   printf("LL creation :-\n\n");
   llmake();
+  printf("\n\nNumber of nodes : %d", numberofnodes ());
   displaycll();
   printf("\nPress any key to EXIT...");
- 
+  getch();
 }
