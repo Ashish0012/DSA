@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
-
 #include<dos.h>
+#include<conio.h>
 
 struct node
 { int data;
@@ -44,6 +44,16 @@ void displayll()
     i++;
     delay(750);
   }while(ptr!=NULL);
+}
+
+int numberofnodes()
+{ int i=1;
+  ptr=head;
+  do
+  { ptr=ptr->nxt;
+    i++;
+  }while(ptr!=NULL);
+  return i;
 }
 
 int deletion()
@@ -93,8 +103,10 @@ void main()
 { system("cls");
   printf("Enter data :-\n\n");
   llmake();
+  printf("\n\nNumber of Nodes before deletion : %d", numberofnodes ());
   displayll();
   deletion();
+  printf("\n\nNumber of Nodes after deletion : %d", numberofnodes ());
   printf("Press any key to EXIT ...");
-  
+  getch();
 }
