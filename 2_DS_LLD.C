@@ -1,112 +1,114 @@
 #include<stdio.h>
 #include<stdlib.h>
-#include<dos.h>
-#include<conio.h>
-
+ 
 struct node
 { int data;
   struct node *nxt;
-}*head,*newnode,*prenode,*ptr;
+}*ptr,*rear=NULL;
 
-void llmake()
-{ int i=1;
-  char j;
-  head=(struct node *)malloc(sizeof(struct node));
-  printf("Input data for node %d : ",i);
-  scanf("%d",&head->data);
-  head->nxt=NULL;
-  prenode=head;
-  printf("\tWant to enter more ? (y/n) : ");
-  scanf("%s",&j);
-  while(j=='y')
-  { i++;
-    newnode=(struct node *)malloc(sizeof(struct node));
-    printf("\nEnter data for node %d : ",i);
-    scanf("%d",&newnode->data);
-    newnode->nxt=NULL;
-    prenode->nxt=newnode;
-    prenode=newnode;
-    printf("\tWant to enter more ? (y/n) : ");
-    scanf("%s",&j);
+void insert()
+{ int dt;
+  ptr=(struct node *)malloc(sizeof(struct node));
+  if(ptr==NULL)
+  { printf("\n -----------------------------------------------");
+    printf("\n  Overflow !!!");
   }
+  else 
+  { if(rear==NULL)
+    { printf("\n\n Enter Data : ");
+      scanf("%d",&dt);
+      ptr->data=dt;
+      rear=ptr;
+	  ptr->nxt=rear;
+    }
+    else
+    { printf("\n\n Enter Data : ");
+      scanf("%d",&dt);
+      ptr->data=dt;
+	  ptr->nxt=rear->nxt;
+      rear->nxt=ptr;
+      rear=ptr;
+    }
+    printf("\n -----------------------------------------------");
+    printf("\n  Data inserted successfully.");
+  }
+  printf("\n -----------------------------------------------");
 }
 
-void displayll()
-{ int i=1;
-  ptr=head;
-  printf("\n\nLinked list is :-\n\n");
-  printf("----------------------------------------------------\n");
-  do
-  { printf("Node - %d | Data - %d | Address - %d |  Next - %d \n",
-    i,ptr->data,ptr,ptr->nxt);
-    printf("----------------------------------------------------\n");
-    ptr=ptr->nxt;
-    i++;
-    delay(750);
-  }while(ptr!=NULL);
+void deletehead()
+{ printf("\n -----------------------------------------------");
+  if(rear==NULL)
+  { printf("\n  C-Queue is EMPTY !!!"); }
+  else
+  { if(rear->nxt==rear)
+    { ptr=rear;
+      rear=NULL;
+    }
+    else
+    { ptr=rear->nxt;
+      rear->nxt=(rear->nxt)->nxt;
+    }
+    printf("\n  Deleted successfully.");
+  }
+  printf("\n -----------------------------------------------");
 }
 
-int numberofnodes()
-{ int i=1;
-  ptr=head;
-  do
-  { ptr=ptr->nxt;
-    i++;
-  }while(ptr!=NULL);
+void displayqueue()
+{ struct node *p;
+  int i=1;
+  printf("\n -----------------------------------------------");
+  if(rear==NULL)
+  { printf("\n  C-Queue is EMPTY !!!"); }
+  else
+  { p=rear->nxt;
+    do
+    { printf("\n  Node %d : %d",i,p->data);
+      p=p->nxt;
+      i++;
+    }while(p!=rear->nxt);
+  }
+  printf("\n -----------------------------------------------");
+}
+
+int calcount()
+{ int i=0;
+  struct node *p;
+  if(rear==NULL)
+  { i=0; }
+  else
+  { p=rear->nxt;
+    do
+    { p=p->nxt;
+      i++;
+    }while(p!=rear->nxt);
+  }
   return i;
 }
 
-int deletion()
-{ int del;
-  char c;
+int main()
+{ int c=0,d,count=0;
   do
-  { printf("\n\nEnter data to delete : ");
-    scanf("%d",&del);
-    prenode=head;
-    do
-    { if(head==NULL)
-      { printf("\nList is empty !!!\n");
-	return 0;
-      }
-      else if(prenode->data==del)
-      { head=prenode->nxt;
-	printf("Node with matching data deleted successfully.\n");
-	if(head==NULL)
-	{ printf("List is now empty !\n");
-	  return 0;
-	}
-	break;
-      }
-      else if((prenode->nxt)->data==del)
-      { prenode->nxt=(prenode->nxt)->nxt;
-	printf("Node with matching data deleted successfully.\n");
-	if(head==NULL)
-	{ printf("List is now empty !\n");
-	  return 0;
-	}
-	break;
-      }
-      else
-      { prenode=prenode->nxt;
-	if(prenode==NULL)
-	{ printf("\nElement not found !!!\n"); }
-      }
-    }while(prenode!=NULL);
-    displayll();
-    printf("Want to delete more ? (y/n) : ");
-    scanf("%s",&c);
-  }while(c=='y');
+  { count=calcount();
+    printf("\n\n     -: Linked List Circualar Queue Menu :-");
+    printf("\n\n 1. Enter Data           ----------");
+    printf("\n 2. Display Queue        | Status |");
+    printf("\n 3. Delete Head          | (%d/NA) |",count);
+    printf("\n 4. Quit                 ----------");
+    printf("\n\n Enter choice number : ");
+    scanf("%d",&c);
+    switch(c)
+    { case 1 : insert();
+	           break;
+      case 2 : displayqueue();
+	           break;
+      case 3 : deletehead();
+	           break;
+      case 4 : break;
+      default : printf("\n --------------------------------------------------------");
+		printf("\n  Invalid input !!!");
+		printf("\n --------------------------------------------------------");
+    }
+  }while(c!=4);
+  printf("\n\nPress any key to EXIT...");
   return 0;
-}
-
-void main()
-{ system("cls");
-  printf("Enter data :-\n\n");
-  llmake();
-  printf("\n\nNumber of Nodes before deletion : %d", numberofnodes ());
-  displayll();
-  deletion();
-  printf("\n\nNumber of Nodes after deletion : %d", numberofnodes ());
-  printf("Press any key to EXIT ...");
-  getch();
 }
