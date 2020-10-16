@@ -2,7 +2,6 @@
 #include<stdlib.h>
 #include<conio.h>
 
-
 struct node
 { int data;
   struct node *nxt;
@@ -34,6 +33,7 @@ void createll()
 void displayll()
 { int i=1;
   ptr=head;
+  numberofnodes();
   printf("\n\nLinked list is :-\n\n");
   printf("----------------------------------------------------\n");
   do
@@ -113,6 +113,16 @@ int delnode()
     scanf("%s",&c);
   }while(c=='y');
   return 0;
+}
+
+void numberofnodes()
+{ int i=1;
+  ptr=head;
+  do
+  { ptr=ptr->nxt;
+    i++;
+  }while(ptr!=NULL);
+  printf("\n\nNumber of nodes : %d\n",i);
 }
 
 void main()
