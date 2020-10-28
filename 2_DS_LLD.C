@@ -1,114 +1,87 @@
 #include<stdio.h>
-#include<stdlib.h>
- 
-struct node
-{ int data;
-  struct node *nxt;
-}*ptr,*rear=NULL;
+#include<conio.h>
+
+int queue[5],front=-1,rear=-1;
 
 void insert()
-{ int dt;
-  ptr=(struct node *)malloc(sizeof(struct node));
-  if(ptr==NULL)
-  { printf("\n -----------------------------------------------");
-    printf("\n  Overflow !!!");
+{ int data;
+  if(rear==4)
+  { printf("\n ------------------------------------");
+    printf("\n  Overflow !!!"); }
+  else if(front==-1&&rear==-1)
+  { printf("\n\n Enter Data : ");
+    scanf("%d",&data);
+    front=rear=0;
+    queue[rear]=data;
+    printf("\n ------------------------------------");
+    printf("\n  Data entered successfully.");
   }
-  else 
-  { if(rear==NULL)
-    { printf("\n\n Enter Data : ");
-      scanf("%d",&dt);
-      ptr->data=dt;
-      rear=ptr;
-	  ptr->nxt=rear;
-    }
-    else
-    { printf("\n\n Enter Data : ");
-      scanf("%d",&dt);
-      ptr->data=dt;
-	  ptr->nxt=rear->nxt;
-      rear->nxt=ptr;
-      rear=ptr;
-    }
-    printf("\n -----------------------------------------------");
-    printf("\n  Data inserted successfully.");
+  else
+  { printf("\n\n Enter Data : ");
+    scanf("%d",&data);
+    rear++;
+    queue[rear]=data;
+    printf("\n ------------------------------------");
+    printf("\n  Data entered successfully.");
   }
-  printf("\n -----------------------------------------------");
+  printf("\n ------------------------------------");
 }
 
 void deletehead()
-{ printf("\n -----------------------------------------------");
-  if(rear==NULL)
-  { printf("\n  C-Queue is EMPTY !!!"); }
+{ printf("\n ------------------------------------");
+  if(front==-1&&rear==-1)
+  { printf("\n  List is Empty !!!"); }
+  else if(front==rear)
+  { front=rear=-1;
+    printf("\n  Deleted successfully.");
+    printf("\n  List is Empty !!!");
+  }
   else
-  { if(rear->nxt==rear)
-    { ptr=rear;
-      rear=NULL;
-    }
-    else
-    { ptr=rear->nxt;
-      rear->nxt=(rear->nxt)->nxt;
-    }
+  { front++;
     printf("\n  Deleted successfully.");
   }
-  printf("\n -----------------------------------------------");
+  printf("\n ------------------------------------");
 }
 
 void displayqueue()
-{ struct node *p;
-  int i=1;
-  printf("\n -----------------------------------------------");
-  if(rear==NULL)
-  { printf("\n  C-Queue is EMPTY !!!"); }
+{ int i=1;
+  printf("\n ------------------------------------");
+  if(front==-1&&rear==-1)
+  { printf("\n  List is Empty !!!"); }
   else
-  { p=rear->nxt;
-    do
-    { printf("\n  Node %d : %d",i,p->data);
-      p=p->nxt;
-      i++;
-    }while(p!=rear->nxt);
+  { for(i=front;i<rear+1;i++)
+    { printf("\n  Node %d : %d",i+1,queue[i]); }
   }
-  printf("\n -----------------------------------------------");
-}
-
-int calcount()
-{ int i=0;
-  struct node *p;
-  if(rear==NULL)
-  { i=0; }
-  else
-  { p=rear->nxt;
-    do
-    { p=p->nxt;
-      i++;
-    }while(p!=rear->nxt);
-  }
-  return i;
+  printf("\n ------------------------------------");
 }
 
 int main()
 { int c=0,d,count=0;
   do
-  { count=calcount();
-    printf("\n\n     -: Linked List Circualar Queue Menu :-");
+  { if(front==-1&&rear==-1)
+    { count=0; }
+    else
+    { count=rear-front+1; }
+    printf("\n\n\t -: Array Queue Menu :-");
     printf("\n\n 1. Enter Data           ----------");
     printf("\n 2. Display Queue        | Status |");
-    printf("\n 3. Delete Head          | (%d/NA) |",count);
+    printf("\n 3. Delete Head          | (%d/5)  |",count);
     printf("\n 4. Quit                 ----------");
     printf("\n\n Enter choice number : ");
     scanf("%d",&c);
     switch(c)
     { case 1 : insert();
-	           break;
+	       break;
       case 2 : displayqueue();
-	           break;
+	       break;
       case 3 : deletehead();
-	           break;
+	       break;
       case 4 : break;
-      default : printf("\n --------------------------------------------------------");
-		printf("\n  Invalid input !!!");
-		printf("\n --------------------------------------------------------");
+      default : printf("\n ------------------------------------");
+	            printf("\n\n  Invalid input !!!");
+	            printf("\n ------------------------------------");
     }
   }while(c!=4);
-  printf("\n\nPress any key to EXIT...");
+  printf("\n\n Press any key to EXIT...");
   return 0;
 }
