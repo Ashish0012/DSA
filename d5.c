@@ -33,7 +33,7 @@ void addfront()
   }
 }
 
-void displaycircularlist()
+void displaydllist()
 { if(last==NULL)
   {  printf("--------------------------------------\n");
      printf("List is empty\n");
@@ -94,7 +94,7 @@ void main()
 			   printf("Added Successfully.");
 			   printf("\n-------------------------------------------\n");
 			   break;
-	  case 2 : displaycircularlist();
+	  case 2 : displaydllist();
 	           break;
       case 3 : deleteend();
                break;
