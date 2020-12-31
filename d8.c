@@ -9,7 +9,6 @@ struct nodebt
 
 int flag=1;
 
-/* To insert a node in the tree */
 void insert()
 { create();
   if(root==NULL) 
@@ -18,7 +17,6 @@ void insert()
   { search(root); }
 }
  
-/* To create a node */
 void create()
 { int data;
   printf("Enter Data : ");
@@ -27,20 +25,18 @@ void create()
   temp->info=data;
   temp->l=temp->r=NULL;
 }
- 
-/* Function to search the appropriate position to insert the new node */
+
 void search(struct nodebt *t)
-{ if((temp->info>t->info)&&(t->r!=NULL))      /* info more than root node info insert at right */
+{ if((temp->info>t->info)&&(t->r!=NULL))
   { search(t->r); }
   else if((temp->info>t->info)&&(t->r==NULL))
   { t->r=temp; }
-  else if((temp->info<t->info)&&(t->l!=NULL))    /* info less than root node info insert at left */
+  else if((temp->info<t->info)&&(t->l!=NULL))
   { search(t->l); }
   else if((temp->info<t->info)&&(t->l==NULL))
   { t->l=temp; }
 }
- 
-/* recursive function to perform in_order traversal of tree */
+
 void in_order(struct nodebt *t)
 { if(root==NULL)
   { printf("\n-------------------------------------------\n");
@@ -54,8 +50,7 @@ void in_order(struct nodebt *t)
   if (t->r!=NULL)    
   { in_order(t->r); }
 }
- 
-/* To check for the deleted node */
+
 void deletenode()
 { int data;
   if(root==NULL)
@@ -69,8 +64,7 @@ void deletenode()
   t2=root;
   search1(root,data);
 }
- 
-/* To find the pre_order traversal */
+
 void pre_order(struct nodebt *t)
 { if(root==NULL)
   { printf("Tree is Empty !!!");
@@ -82,8 +76,7 @@ void pre_order(struct nodebt *t)
   if(t->r!=NULL)    
   { pre_order(t->r); }
 }
- 
-/* To find the post_order traversal */
+
 void post_order(struct nodebt *t)
 { if(root==NULL)
   { printf("Tree is Empty !!!");
@@ -95,8 +88,7 @@ void post_order(struct nodebt *t)
   { post_order(t->r); }
   printf("-> %d",t->info);
 }
- 
-/* Search for the appropriate position to insert the new node */
+
 void search1(struct nodebt *t,int data)
 { if((data>t->info))
   { t1=t;
@@ -109,11 +101,9 @@ void search1(struct nodebt *t,int data)
   else if((data==t->info))
   { delete1(t); }
 }
- 
-/* To deletenode a node */
+
 void delete1(struct nodebt *t)
 { int k;
-  /* To deletenode leaf node */
   if((t->l==NULL)&&(t->r==NULL))
   { if(t1->l==t)
     { t1->l=NULL; }
@@ -123,7 +113,6 @@ void delete1(struct nodebt *t)
     free(t);
     return 0;
   }
-  /* To deletenode node having one left hand child */
   else if((t->r==NULL))
   { if(t1==t)
     { root=t->l;
@@ -137,7 +126,6 @@ void delete1(struct nodebt *t)
     free(t);
     return 0;
   }
-  /* To deletenode node having right hand child */
   else if(t->l==NULL)
   { if(t1==t)
     { root=t->r;
@@ -151,7 +139,6 @@ void delete1(struct nodebt *t)
     free(t);
     return 0;
   }
-  /* To deletenode node having two child */
   else if((t->l!=NULL)&&(t->r!=NULL))  
   { t2=root;
     if(t->r!=NULL)
@@ -166,8 +153,7 @@ void delete1(struct nodebt *t)
     t->info=k;
   }
 }
- 
-/* To find the least element in the right sub tree */
+
 int least(struct nodebt *t)
 { t2=t;
   if(t->l!=NULL)
@@ -177,8 +163,7 @@ int least(struct nodebt *t)
   else    
   { return(t->info); }
 }
- 
-/* To find the biggest element in the left sub tree */
+
 int biggest(struct nodebt *t)
 { if(t->r!=NULL)
   { t2=t;
