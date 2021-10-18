@@ -1,84 +1,61 @@
 #include<stdio.h>
+#include<stdlib.h>
+#include<conio.h>
+#include<dos.h>
 
-int i,j,n;
+struct node
+{ int data;
+  struct node *nxt;
+}*head,*newnode,*prenode,*ptr;
 
-void inputarray(int arr[])
-{ printf("\nEnter number of elements : ");
-  scanf("%d",&n);
-  printf("\n");
-  for(i=0;i<n;i++)
-  { printf("Enter element %d : ",i+1);
-    scanf("%d",&arr[i]);
+void llmake()
+{ int i=1;
+  char j;
+  head=(struct node *)malloc(sizeof(struct node));
+  printf("Input data for node %d : ",i);
+  scanf("%d",&head->data);
+  head->nxt=NULL;
+  prenode=head;
+  printf("\tWant to enter more ? (y/n) : ");
+  scanf("%s",&j);
+  while(j=='y')
+  { i++;
+    newnode=(struct node *)malloc(sizeof(struct node));
+    printf("\nEnter data for node %d : ",i);
+    scanf("%d",&newnode->data);
+    newnode->nxt=NULL;
+    prenode->nxt=newnode;
+    prenode=newnode;
+    printf("\tWant to enter more ? (y/n) : ");
+    scanf("%s",&j);
   }
 }
 
-int linearsearch(int arr[],int x)
-{ int flag=0;
-  for(i=0;i<n;i++)
-  { if(arr[i]==x)
-    { return i+1; }
-  }
-  return -1;
-}
-
-void sortarray(int arr[])
-{ int temp;
-  for(i=0;i<n;i++)
-  { for(j=i+1;j<n;j++)
-    { if(arr[i]>arr[j])
-      { temp=arr[i];
-        arr[i]=arr[j];
-        arr[j]=temp;
-	  }
-	}
-  }
-  printf("\n\n# Sorted array is :-\n\n |");
-  for(i=0;i<n;i++)
-  { printf(" %d |",arr[i]); }
-  printf("\n");
-}
-
-int binarysearch(int arr[],int x)
-{ int first=0,middle,last=n-1;
-  while(first<=last)
-  { middle=first+(last-first)/2;
-    if(arr[middle]==x)
-    { return middle+1; }
-    else if(arr[middle]<x)
-    { first=middle+1; }
-    else
-    { last=middle-1; }
-  }
-  return -1;
+void displaycll()
+{ int i=1;
+  ptr=head;
+  printf("\n\nLinked list is :-\n");
+  do
+  { printf("---------------------------------\n");
+    printf("| Node | Data | Address |  Next |\n");
+    printf("---------------------------------\n");
+    printf("|  %d   |  %d   |   %d  |  %d |\n",i,ptr->data,ptr,ptr->nxt);
+    printf("---------------------------------\n");
+    if(ptr->nxt!=NULL)
+    { printf("               |\n");
+      printf("               v\n");
+    }
+    ptr=ptr->nxt;
+    i++;
+    delay(750);
+  }while(ptr!=NULL);
 }
 
 void main()
-{ int arr[50],x,choice,k;
-  printf("\t-: Linear & Binary Search on an Array :-");
-  printf("\n\n# Input array details :-\n");
-  inputarray(arr);
-  printf("\nEnter element to search : ");
-  scanf("%d",&x);
-  printf("\n\n# Which sorting method to use ?\n");
-  printf("\n1. Linear Search\n2. Binary Search");
-  printf("\n\nEnter your choice number (1 or 2) : ");
-  scanf("%d",&choice);
-  switch(choice)
-  { case 1 : k=linearsearch(arr,x);
-             if(k!=-1)
-			 { printf("\nFound at position : %d",k); }
-			 else
-			 { printf("\nNot found (%d) !",k); }
-             break;
-    case 2 : sortarray(arr);
-             k=binarysearch(arr,x);
-             if(k!=-1)
-			 { printf("\nFound at position : %d",k); }
-			 else
-			 { printf("\nNot found (%d) !",k); }
-             break;
-    default : printf("\n\nPlease enter valid choice number !!!");
-  }
-  printf("\n\nPress any key to EXIT ...");
+{ clrscr();
+  printf("LL creation :-\n\n");
+  llmake();
+  displaycll();
+  printf("\nPress any key to EXIT...");
   getch();
 }
