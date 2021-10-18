@@ -1,191 +1,145 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<conio.h>
+#include<dos.h>
 
 struct node
-{ int rollno;
-  char name[15];
+{ int data;
   struct node *nxt;
 }*head,*newnode,*prenode,*ptr;
 
-void addnode()
-{ if(head==NULL)
-  { head=(struct node *)malloc(sizeof(struct node));
-    printf("Enter Roll No. : ");
-    scanf("%d",&head->rollno);
-    printf("Enter Name : ");
-    scanf("%s",&head->name);
-	head->nxt=NULL;
-    prenode=head;
-  }
-  else
-  { newnode=(struct node *)malloc(sizeof(struct node));
-    printf("\nEnter Roll No. : ");
-    scanf("%d",&newnode->rollno);
-    printf("Enter Name : ");
-    scanf("%s",&newnode->name);
+void createll()
+{ int i=1;
+  char j;
+  head=(struct node *)malloc(sizeof(struct node));
+  printf("Input data for node %d : ",i);
+  scanf("%d",&head->data);
+  head->nxt=NULL;
+  prenode=head;
+  printf("\tWant to enter more ? (y/n) : ");
+  scanf("%s",&j);
+  while(j=='y')
+  { i++;
+    newnode=(struct node *)malloc(sizeof(struct node));
+    printf("\nEnter data for node %d : ",i);
+    scanf("%d",&newnode->data);
     newnode->nxt=NULL;
     prenode->nxt=newnode;
     prenode=newnode;
+    printf("\tWant to enter more ? (y/n) : ");
+    scanf("%s",&j);
   }
 }
 
-void addnodeatposition()
-{ int pos;
-  printf("\nEnter position : ");
-  scanf("%d",&pos);
-  newnode=(struct node *)malloc(sizeof(struct node));
-  printf("\nEnter Roll No. : ");
-  scanf("%d",&newnode->rollno);
-  printf("Enter Name : ");
-  scanf("%s",&newnode->name);
-  int i=1;
-  if(pos==1)
-  { newnode->nxt=head;
-    head=newnode;
-  }
+void displayll()
+{ int i=1;
   ptr=head;
+  printf("\n\nLinked list is :-\n\n");
+  printf("----------------------------------------------------\n");
   do
-  { i++;
-    if(pos==i)
-    { newnode->nxt=ptr->nxt;
-	  ptr->nxt=newnode;
-	  printf("\n-------------------------------------------\n");
-	  printf("Added successfully.");
-	  printf("\n-------------------------------------------\n");
-	  break;
-	}
-    else
-	{ ptr=ptr->nxt; }
+  { printf("Node - %d | Data - %d | Address - %d |  Next - %d \n",
+    i,ptr->data,ptr,ptr->nxt);
+    printf("----------------------------------------------------\n");
+    ptr=ptr->nxt;
+    i++;
+    delay(750);
   }while(ptr!=NULL);
 }
 
-void displaylist()
-{ if(head==NULL)
-  {  printf("--------------------------------------\n");
-     printf("List is empty\n");
-     printf("--------------------------------------\n");
-  }
-  else
-  { int i=1;
-    ptr=head;
-    printf("\n\nLinked list is :-\n\n");
-    printf("-------------------------------------------------------\n");
-    do
-    { printf("Node - %d : Roll No. - %d",i,ptr->rollno);
-	  printf("\n         : Name - %s",ptr->name);
-	  printf("\n         : Address - %d",ptr);
-	  printf("\n         : Next - %d \n",ptr->nxt);
-      printf("-------------------------------------------------------\n");
-      ptr=ptr->nxt;
-      i++;
-    }while(ptr!=NULL);
-  }
-}
-
-int deletenode()
-{ if(head==NULL)
-  { printf("--------------------------------------\n");
-    printf("List is empty !!!\n");
-    printf("--------------------------------------\n");
-    return 0;
-  }
-  else 
-  { int del;
-    char c;
-    do
-    { printf("\n\nEnter Roll No. to delete : ");
-      scanf("%d",&del);
-      prenode=head;
-      do
-      { if(prenode->rollno==del)
-        { head=prenode->nxt;
-          printf("\n-------------------------------------------\n");
-	      printf("Node with matching data deleted successfully.\n");
-	      printf("\n-------------------------------------------\n");
-	      if(head==NULL)
-	      { printf("\n-------------------------------------------\n");
-		    printf("List is now empty !");
-	        printf("\n-------------------------------------------\n");
-	        return 0;
-	      }
-	      break;
-        }
-        else if((prenode->nxt)->rollno==del)
-        { prenode->nxt=(prenode->nxt)->nxt;
-	      printf("Node with matching data deleted successfully.\n");
-	      if(head==NULL)
-	      { printf("\n-------------------------------------------\n");
-		    printf("List is now empty !");
-		    printf("\n-------------------------------------------\n");
-	        return 0;
-	      }
-	      break;
-        }
-        else
-        { prenode=prenode->nxt;
-	      if(prenode==NULL)
-	      { printf("\n-------------------------------------------\n");
-		    printf("Element not found !!!");
-		    printf("\n-------------------------------------------\n");
-		  }
-        }
-      }while(prenode!=NULL);
-      displaylist();
-      printf("Want to delete more ? (y/n) : ");
-      scanf("%s",&c);
-    }while(c=='y');
-    return 0;
-  }
-}
-
-void reverselist()
-{ if(head!=NULL)
-  { prenode=head;
-    ptr=head->nxt;
-    head=head->nxt;
-    prenode->nxt=NULL;
-    while(head!=NULL)
-    { head=head->nxt;
-      ptr->nxt=prenode;
-      prenode=ptr;
-      ptr=head;
+void addnode()
+{ newnode=(struct node *)malloc(sizeof(struct node));
+  printf("Enter Data of new node : ");
+  scanf("%d",&newnode->data);
+  newnode->nxt=NULL;
+  prenode=head;
+  do
+  { if((newnode->data)<(prenode->data))
+    { newnode->nxt=head;
+      head=newnode;
+      break;
     }
-    head=prenode;
-    printf("\n-------------------------------------------\n");
-	printf("List is Reversed.");
-	printf("\n-------------------------------------------\n");
-  }
+    else if(newnode->data>=prenode->data&&newnode->data<=(prenode->nxt)->data)
+    { newnode->nxt=prenode->nxt;
+      prenode->nxt=newnode;
+      break;
+    }
+    else if(prenode->nxt==NULL)
+    { prenode->nxt=newnode;
+      break;
+    }
+    prenode=prenode->nxt;
+  }while(prenode!=NULL);
+  printf("\nNode added successfully.\n\n");
+}
+
+int delnode()
+{ int del;
+  char c;
+  do
+  { printf("\n\nEnter data to delete : ");
+    scanf("%d",&del);
+    prenode=head;
+    do
+    { if(head==NULL)
+      { printf("\nList is empty !!!\n");
+	return 0;
+      }
+      else if(prenode->data==del)
+      { head=prenode->nxt;
+	printf("Node with matching data deleted successfully.\n");
+	if(head==NULL)
+	{ printf("List is now empty !\n");
+	  return 0;
+	}
+	break;
+      }
+      else if((prenode->nxt)->data==del)
+      { prenode->nxt=(prenode->nxt)->nxt;
+	printf("Node with matching data deleted successfully.\n");
+	if(head==NULL)
+	{ printf("\nList is now empty !\n");
+	  return 0;
+	}
+	break;
+      }
+      else
+      { prenode=prenode->nxt;
+	if(prenode==NULL)
+	{ printf("\nElement not found !!!\n"); }
+      }
+    }while(prenode!=NULL);
+    displayll();
+    printf("Want to delete more ? (y/n) : ");
+    scanf("%s",&c);
+  }while(c=='y');
+  return 0;
 }
 
 void main()
-{ int choice,pos;
-  printf("\n\t -: Student Information :-");
-  do
-  { printf("\n\n-------------------------------------------\n");
-    printf("\t\t-: Menu :-\n");
-    printf("-------------------------------------------\n\n");
-    printf("1. Add node\n2. Add node at specific position\n");
-	printf("3. Display List\n4. Delete node\n5. Reverse List\n6. Exit\n");
-    printf("\nEnter choice no. : ");
-    scanf("%d",&choice);
-    switch(choice)
-    { case 1 : addnode();
-               printf("\n-------------------------------------------\n");
-			   printf("Added Successfully.");
-			   printf("\n-------------------------------------------\n");
-			   break;
-	  case 2 : addnodeatposition();
-	           break;
-      case 3 : displaylist();
-               break;
-      case 4 : deletenode();
-               break;
-      case 5 : reverselist();
-      case 6 : break;
-	  default : printf("\nPlease enter valid choice number !!!");
-	}
-  }while(choice!=6);
-  printf("\nPress any key to EXIT ...");
+{ int c=0;
+  clrscr();
+  while(c!=5)
+  { printf("\n\n\t-: Sorted Linked List :-\n\n");
+    printf("1. Create New List\n");
+    printf("2. Display List\n");
+    printf("3. Add Node\n");
+    printf("4. Delete node\n");
+    printf("5. Exit\n\n");
+    printf("Input your choice : ");
+    scanf("%d",&c);
+    switch(c)
+    { case 1 : createll();
+	       break;
+      case 2 : displayll();
+	       break;
+      case 3 : addnode();
+	       break;
+      case 4 : delnode();
+	       break;
+      case 5 : break;
+      default : printf("\nPlease enter valid choice number !!!\n");
+    }
+  }
+  printf("Press any key to EXIT ...");
   getch();
 }
