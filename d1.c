@@ -15,23 +15,7 @@ void llmake()
   printf("Input data for node %d : ",i);
   scanf("%d",&head->data);
   head->nxt=NULL;
-  prenode=head;
-  printf("\tWant to enter more ? (y/n) : ");
-  scanf("%s",&j);
-  while(j=='y')
-  { i++;
-    newnode=(struct node *)malloc(sizeof(struct node));
-    printf("\nEnter data for node %d : ",i);
-    scanf("%d",&newnode->data);
-    newnode->nxt=NULL;
-    prenode->nxt=newnode;
-    prenode=newnode;
-    printf("\tWant to enter more ? (y/n) : ");
-    scanf("%s",&j);
-  }
-}
-
-void displaycll()
+  prenode=head;()
 { int i=1;
   ptr=head;
   printf("\n\nLinked list is :-\n");
