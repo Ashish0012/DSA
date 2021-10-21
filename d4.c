@@ -30,19 +30,7 @@ void createll()
   }
 }
 
-void displayll()
-{ int i=1;
-  ptr=head;
-  printf("\n\nLinked list is :-\n\n");
-  printf("--------------------------------------------------------------\n");
-  do
-  { printf("Node - %d | Data - %d | Address - %d |  Next - %d \n",
-    i,ptr->data,ptr,ptr->nxt);
-    printf("--------------------------------------------------------------\n");
-    ptr=ptr->nxt;
-    i++;
-  }while(ptr!=NULL);
-}
+
 
 void addnode()
 { newnode=(struct node *)malloc(sizeof(struct node));
