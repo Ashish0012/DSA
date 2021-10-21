@@ -16,15 +16,6 @@ void insert()
   else    
   { search(root); }
 }
- 
-void create()
-{ int data;
-  printf("Enter Data : ");
-  scanf("%d",&data);
-  temp=(struct nodebt *)malloc(1*sizeof(struct nodebt));
-  temp->info=data;
-  temp->l=temp->r=NULL;
-}
 
 void search(struct nodebt *t)
 { if((temp->info>t->info)&&(t->r!=NULL))
