@@ -9,17 +9,7 @@ struct node
   struct node *pre;
 }*last,*newnode,*postnode,*ptr;
 
-void addfront()
-{ if(last==NULL)
-  { last=(struct node *)malloc(sizeof(struct node));
-    printf("Enter Roll No. : ");
-    scanf("%d",&last->empid);
-    printf("Enter Name : ");
-    scanf("%s",&last->name);
-	last->nxt=NULL;
-	last->pre=NULL;
-    postnode=last;
-  }
+
   else
   { newnode=(struct node *)malloc(sizeof(struct node));
     printf("\nEnter Roll No. : ");
