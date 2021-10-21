@@ -14,18 +14,7 @@ void addfront()
     printf("Enter Roll No. : ");
     scanf("%d",&last->rollno);
     printf("Enter Name : ");
-    scanf("%s",&last->name);
-	last->nxt=last;
-    prenode=last;
-  }
-  else
-  { newnode=(struct node *)malloc(sizeof(struct node));
-    printf("\nEnter Roll No. : ");
-    scanf("%d",&newnode->rollno);
-    printf("Enter Name : ");
-    scanf("%s",&newnode->name);
-    newnode->nxt=prenode;
-    last->nxt=newnode;
+    scanf("%s",&last->
     prenode=newnode;
   }
 }
