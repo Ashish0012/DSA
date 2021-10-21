@@ -10,17 +10,7 @@ void insert()
     printf("\n  Overflow !!!"); }
   else if(front==-1&&rear==-1)
   { printf("\n\n Enter Data : ");
-    scanf("%d",&data);
-    front=rear=0;
-    queue[rear]=data;
-    printf("\n ------------------------------------");
-    printf("\n  Data entered successfully.");
-  }
-  else
-  { printf("\n\n Enter Data : ");
-    scanf("%d",&data);
-    rear++;
-    queue[rear]=data;
+    scanf("%d",&data)
     printf("\n ------------------------------------");
     printf("\n  Data entered successfully.");
   }
