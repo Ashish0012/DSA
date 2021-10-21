@@ -33,14 +33,6 @@ void createll()
     }
 }
 
-void displayll()
-{
-    int i = 1;
-    ptr = head;
-    numberofnodes();
-    printf("\n\nLinked list is :-\n\n");
-    printf("----------------------------------------------------\n");
-    do
     {
         printf("Node - %d | Data - %d | Address - %d |  Next - %d \n",
                i, ptr->data, ptr, ptr->nxt);
