@@ -30,14 +30,6 @@ void addfront()
   }
 }
 
-void displaycircularlist()
-{ if(last==NULL)
-  {  printf("--------------------------------------\n");
-     printf("List is empty\n");
-     printf("--------------------------------------\n");
-  }
-  else
-  { int i=1;
     ptr=last->nxt;
     printf("\n\nLinked list is :-\n\n");
     printf("-------------------------------------------------------\n");
